@@ -166,6 +166,11 @@ git merge experiment
 
 因为 `rebase` 不好理解，这里就多啰嗦两句，`rebase` 的原理是首先找到这两个分支（即当前分支 experiment、变基操作的目标基底分支 master） 的最近共同祖先 C2，然后对比当前分支相对于该祖先的历次提交，提取相应的修改并存为临时文件， 然后将当前分支指向目标基底 C3, 最后以此将之前另存为临时文件的修改依序应用。
 
+```sh
+git checkout experiment
+git rebase master
+```
+
 ![git-rebase](resources/git-rebase.png)
 
 变基操作后，回到 master 分支，进行一次快进合并操作
