@@ -1,5 +1,5 @@
 test
 
-add
+add stash
 
 commit
