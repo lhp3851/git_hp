@@ -234,6 +234,8 @@ To push the current branch and <branch> the remote as upstream, use
     git push --set-upstream origin <branch>
 ```
 
+* [git 分支](https://git-scm.com/book/zh/v2/Git-分支-分支简介)
+
 ### 3.2 版本管理
 
 ### 3.2.1 文件跟踪
@@ -292,6 +294,8 @@ git rm -rf .config/
 
 使用 `git commit` 命令操作后，文件被加入到本地仓库里面了，即本地仓库的当前分支头 `HEAD` 的指向。
 
+正常 commit 操作，没什么可说的，有一种情况不常见，但也有时会用到：`git-chery-pick`[^git-chery-pick]，这个操作选择某一个 commit 插入到当前分支。比如在 `test` 分支，发现了一个 bug，一不小心在 `develop` 分支上修改了，这个时候你又回到了 `test` 分支，为了修复这个bug，你不想来回的在这两个分支切换，此时，可以用这个`git-chery-pick`命令从 `develop` 上选择你想要的那个 commit 插入到 `test` 分支上来。
+
 #### 3.2.5 回滚
 
 git reset[^git-reset]回滚操作，其实分为两个部分
@@ -336,6 +340,8 @@ git reset --hard [HEAD]
 * `--soft`：重置HEAD到另外一个commit。
 * `--mixed`：重置HEAD到另外一个commit,并且重置 stage/index 以便和HEAD相匹配。
 * `--hard`： 重置HEAD到另外一个commit，重置 stage/index 以便反映HEAD的变化，并且重置workcopy，使仓库HEAD，stage，workcopy 三者保持一致。
+
+* [git 撤销操作](https://git-scm.com/book/zh/v2/Git-基础-撤消操作)
 
 ### 3.4 Stash
 
@@ -386,6 +392,8 @@ stash@{0}: WIP on master: 049d078 added the index file
 stash@{1}: WIP on master: c264051 Revert "added file_size"
 stash@{2}: WIP on master: 21d80a5 added number to log
 ```
+
+* [git stash](https://git-scm.com/book/zh/v2/Git-工具-贮藏与清理)
 
 ### 3.5 Git Hook
 
@@ -522,3 +530,4 @@ git checkout -b version2 v2.0.0
 [^git-doc]: [git doc](https://git-scm.com/doc)
 [^git-reset]: [git-reset](https://www.cnblogs.com/kidsitcn/p/4513297.html)
 [^debug]: 所有信息都支持增删改查操作；先本地，后远程
+[^git-chery-pick]: [git-chery-pick](https://git-scm.com/docs/git-cherry-pick)
