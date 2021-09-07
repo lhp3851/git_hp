@@ -296,10 +296,22 @@ git rm -rf .config/
 
 * 从 Stage 撤销
 
-假设这种情况，一个文件或者几个文件，你刚做了修改，但是发现，改的不对，想撤销修改，那么，可以这么操作
+假设这种情况，一个文件或者几个文件，你刚做了修改，但是发现改的不对，并且没有对该文件使用`git add`操作，想撤销修改，那么，可以这么操作
 
 ```sh
-git checkout 
+git restore <file> 
+```
+
+或者
+
+```sh
+git checkout <file> 
+```
+
+如果已经使用了`git add`操作，则
+
+```sh
+git restore  --staged <file> 
 ```
 
 * 从 本地仓库 回滚
