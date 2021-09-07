@@ -360,16 +360,27 @@ git stash push
 使用 `git stash drop` 加上将要移除的贮藏的名字来移除它
 
 ```sh
+#删除某一个 stash
 git stash drop stash@{0}
+#删除所有 stash
+git stash clear
 ```
 
 #### 3.4.3 应用 stash
 
 ```sh
-git stash apply
+git stash apply [--index] [<stash>]
 # 或者应用指定的 stash
 git stash apply stash@{2}
 ```
+
+还有一个应用 stash 的 `pop` 命令
+
+```sh
+git stash pop [--index] [<stash>]
+```
+
+stash 应用了 `pop` 之后，会被删除，而 `apply` 不会被删除。
 
 #### 3.4.4 查询 stash
 
