@@ -337,11 +337,48 @@ git reset --hard [HEAD]
 
 说到这里就多说一句，这三个参数到底有啥作用
 
-* `--soft`：只回滚 workcopy。
-* `--mixed`：回滚 workcopy 与 stage，不回滚仓库 HEAD。
-* `--hard`： 回滚 workcopy，stage，HEAD， 使仓库HEAD，stage，workcopy 三者保持一致。
+* `--soft`：重置HEAD到另外一个commit。
+* `--mixed`：重置HEAD到另外一个commit,并且重置 stage/index 以便和HEAD相匹配。
+* `--hard`： 重置HEAD到另外一个commit，重置 stage/index 以便反映HEAD的变化，并且重置workcopy，使仓库HEAD，stage，workcopy 三者保持一致。
 
 ### 3.4 Stash
+
+有时，当你在项目的一部分上已经工作一段时间后，所有东西都进入了混乱的状态， 而这时你想要切换到另一个分支做一点别的事情。 问题是，你不想仅仅因为过会儿回到这一点而为做了一半的工作创建一次提交。 针对这个问题的答案是 git stash 命令。
+
+贮藏（stash）会处理工作目录的脏的状态——即跟踪文件的修改与暂存的改动——然后将未完成的修改保存到一个栈上， 而你可以在任何时候重新应用这些改动（甚至在不同的分支上）。
+
+#### 3.4.1 创建 stash
+
+```sh
+git stash 
+# 或者
+git stash push
+```
+
+#### 3.4.2 删除 stash
+
+使用 `git stash drop` 加上将要移除的贮藏的名字来移除它
+
+```sh
+git stash drop stash@{0}
+```
+
+#### 3.4.3 应用 stash
+
+```sh
+git stash apply
+# 或者应用指定的 stash
+git stash apply stash@{2}
+```
+
+#### 3.4.4 查询 stash
+
+```sh
+git stash list
+stash@{0}: WIP on master: 049d078 added the index file
+stash@{1}: WIP on master: c264051 Revert "added file_size"
+stash@{2}: WIP on master: 21d80a5 added number to log
+```
 
 ### 3.5 Git Hook
 
