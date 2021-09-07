@@ -294,7 +294,7 @@ git rm -rf .config/
 
 #### 3.2.5 回滚
 
-回滚操作，其实分为两个部分
+git reset[^git-reset]回滚操作，其实分为两个部分
 
 * 从 Stage 撤销
 
@@ -302,11 +302,7 @@ git rm -rf .config/
 
 ```sh
 git restore <file> 
-```
-
-或者
-
-```sh
+# 或者
 git checkout <file> 
 ```
 
@@ -393,24 +389,136 @@ stash@{2}: WIP on master: 21d80a5 added number to log
 
 ### 3.5 Git Hook
 
+Hook 分为两种：客户端 Hook 与服务端 Hook，客户端钩子由诸如提交和合并这样的操作所调用，而服务器端钩子作用于诸如接收被推送的提交这样的联网操作。
+
+#### 3.5.1 安装一个钩子
+
+钩子都被存储在 Git 目录下的 hooks 子目录中。 也即绝大部分项目中的 .git/hooks 。 当你用 git init 初始化一个新版本库时，Git 默认会在这个目录中放置一些示例脚本。 这些脚本除了本身可以被调用外，它们还透露了被触发时所传入的参数。 所有的示例都是 shell 脚本，其中一些还混杂了 Perl 代码，不过，任何正确命名的可执行脚本都可以正常使用 —— 你可以用 Ruby 或 Python，或任何你熟悉的语言编写它们。 这些示例的名字都是以 .sample 结尾，如果你想启用它们，得先移除这个后缀。
+
+把一个正确命名（不带扩展名）且可执行的文件放入 .git 目录下的 hooks 子目录中，即可激活该钩子脚本。 这样一来，它就能被 Git 调用。接下来，我们会讲解常用的钩子脚本类型。
+
+#### 3.5.2 客户端钩子
+
+客户端钩子分为很多种。 下面把它们分为：提交工作流钩子、电子邮件工作流钩子和其它钩子。
+
+##### 3.5.2.1 提交工作流钩子
+
+```txt
+pre-commit: 在键入提交信息前运行。
+prepare-commit-msg: 在启动提交信息编辑器之前，默认信息被创建之后运行。
+commit-msg: 可以用来在提交通过前验证项目状态或提交信息。
+post-commit: 在整个提交过程完成后运行。
+```
+
+##### 3.5.2.2 电子邮件工作流钩子
+
+```txt
+applypatch-msg: 可以用该脚本来确保提交信息符合格式，或直接用脚本修正格式错误。
+pre-applypatch: 运行于应用补丁之后，产生提交之前，所以你可以用它在提交前检查快照。
+post-applypatch: 运行于提交产生之后，是在 git am 运行期间最后被调用的钩子。
+```
+
+##### 3.5.2.3 其它客户端钩子
+
+```txt
+pre-rebase: 运行于变基之前。
+post-rewrite: 被那些会替换提交记录的命令调用，比如 git commit --amend 和 git rebase。
+post-checkout: 在 git checkout 成功运行后。
+post-merge: 在 git merge 成功运行后。
+pre-push: 在 git push 运行期间，更新了远程引用但尚未传送对象时被调用。
+pre-auto-gc   钩子会在垃圾回收 git gc --auto 开始之前被调用。
+```
+
+#### 3.5.3 服务器端钩子
+
+```txt
+pre-receive: 处理来自客户端的推送操作时，最先被调用。
+update: 和 pre-receive 脚本十分类似，区别在于它会为每一个准备更新的分支各运行一次。
+post-receive: 在整个过程完结以后运行，可以用来更新其他系统服务或者通知用户。 
+```
+
+* [Hook 的具体作用](https://git-scm.com/book/zh/v2/自定义-Git-Git-钩子)
+
 ## 4 Tag
+
+Git 支持两种标签：轻量标签（lightweight）与附注标签（annotated）。
+
+轻量标签很像一个不会改变的分支——它只是某个特定提交的引用。
+
+而附注标签是存储在 Git 数据库中的一个完整对象， 它们是可以被校验的，其中包含打标签者的名字、电子邮件地址、日期时间， 此外还有一个标签信息，并且可以使用 GNU Privacy Guard （GPG）签名并验证。 通常会建议创建附注标签，这样你可以拥有以上所有信息。但是如果你只是想用一个临时的标签， 或者因为某些原因不想要保存这些信息，那么也可以用轻量标签。
 
 Tag 的意义，是方便操作历史信息，比如回滚，小版本临时修复线上 bug。最常用的就是发布依赖库版本，一般每一个依赖库发布的时候，都会创建一个 tag，方便依赖库使用者用依赖工具对依赖库做版本管理。
 
 ### 4.1 创建 Tag
 
+* 创建轻量标签
+
+```sh
+git tag <tag-name>
+```
+
+* 创建附注标签
+
+```sh
+git tag -a v0.1.0 -m "release 0.1.0 version"
+```
+
 ### 4.2 删除 Tag
+
+```sh
+git tag -d <tag-name>
+```
 
 ### 4.3 查询 Tag
 
-#### 4.3.1 查询 Tag 列表
+* 查询 Tag 列表
 
-#### 4.3.2 查询某个 Tag
+```sh
+git tag
+# 或者
+git tag --list
+```
+
+tag 也支持搜索，匹配操作如下
+
+```sh
+  git tag -l 'v0.1.*'
+```
+
+* 查询某个 Tag
+
+```sh
+git show <tag-name>
+```
 
 ### 4.2 推送 Tag
 
-* 所有信息都支持增删改查操作
-* 先本地，后远程
+* 推送本地所有 tag
+
+```sh
+git push origin -–tags
+```
+
+* 只推某个 tag 到远程
+
+```sh
+git push origin tag <tag-name>
+```
+
+### 4.3 切换到某个 Tag
+
+```sh
+git checkout <tag-name>
+```
+
+此时，会进入`分离头`的状态，后续的提交，将会变得不可访问（通过具体的 commit id可以访问）。如果想在这个 tag 后继续修改，可以签出一个分支后继续操作，例如：。
+
+```sh
+git checkout -b version2 v2.0.0
+```
+
+* [git tag](https://git-scm.com/book/zh/v2/Git-基础-打标签)
 
 [^git-doc]: [git doc](https://git-scm.com/doc)
 [^git-reset]: [git-reset](https://www.cnblogs.com/kidsitcn/p/4513297.html)
+[^debug]: 所有信息都支持增删改查操作；先本地，后远程
