@@ -1,5 +1,7 @@
 # Git
 
+>使用 Git 的时候，建议每一次都按照**功能**或者**业务**提交，确保每一次提交都是一个完整的功能或者业务，按照这种使用方法，后面使用 Git 的时候，就会越来越顺心。
+
 对于 Git[^git-doc] 仓库的管理使用，一般分为三个步骤：初始化、配置、管理。
 
 ## 1 仓库初始化
@@ -314,7 +316,30 @@ git checkout <file>
 git restore  --staged <file> 
 ```
 
+或者
+
+```sh
+git reset test.md
+git checkout <file> 
+```
+
 * 从 本地仓库 回滚
+
+如果，使用了`git commit`命令，要回滚的话，则需要
+
+```sh
+git reset --hard [HEAD]
+```
+
+* 不给 HEAD 参数，默认为 HEAD。这个命令后面携带 `commit id`，`commit id` 可以用 `git log` 查看。
+* HEAD 表示仓库当前状态，想回到 HEAD 上一个历史，可以用 HEAD^ 表示，上上一个历史 HEAD^^ 表示，以此类推。
+* 这里携带了`--hard`参数，还有两个其他的参数 `--mixed` 与 `--soft`，`git reset` 不携带这三个的任何一个的时候，默认 `--mixed`。
+
+说到这里就多说一句，这三个参数到底有啥作用
+
+* `--soft`：只回滚 workcopy。
+* `--mixed`：回滚 workcopy 与 stage，不回滚仓库 HEAD。
+* `--hard`： 回滚 workcopy，stage，HEAD， 使仓库HEAD，stage，workcopy 三者保持一致。
 
 ### 3.4 Stash
 
