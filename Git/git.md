@@ -59,7 +59,7 @@ git config [--global] user.email <email>
 * `--global`为可选参数，这里可以有 `--system`, `--global`, `--local`, `--worktree` and `--file <filename>` 几种值，一般常用的是 `--global`，表示当前电脑用户的 git 全局配置用户。
 * 要想深入了解，参见`git config --help` 或者 [git config](https://git-scm.com/docs/git-config)
 
-### 2.3  配置 Terminal 颜色
+### 2.3  配置 Terminal 颜色主题
 
 ```shell
 git config --global color.ui auto
