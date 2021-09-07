@@ -333,7 +333,7 @@ git reset --hard [HEAD]
 
 * 不给 HEAD 参数，默认为 HEAD。这个命令后面携带 `commit id`，`commit id` 可以用 `git log` 查看。
 * HEAD 表示仓库当前状态，想回到 HEAD 上一个历史，可以用 HEAD^ 表示，上上一个历史 HEAD^^ 表示，以此类推。
-* 这里携带了`--hard`参数，还有两个其他的参数 `--mixed` 与 `--soft`，`git reset` 不携带这三个的任何一个的时候，默认 `--mixed`。
+* 这里携带了`--hard`参数，还有几个其他的参数，常见的有 `--mixed` 与 `--soft`，`git reset` 不携带这三个的任何一个的时候，默认 `--mixed`。
 
 说到这里就多说一句，这三个参数到底有啥作用
 
@@ -365,3 +365,4 @@ Tag 的意义，是方便操作历史信息，比如回滚，小版本临时修�
 * 先本地，后远程
 
 [^git-doc]: [git doc](https://git-scm.com/doc)
+[^git-reset]: [git-reset](https://www.cnblogs.com/kidsitcn/p/4513297.html)
