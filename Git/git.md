@@ -128,6 +128,52 @@ git checkout <branch>
 git chekcout -b <new-branch>
 ```
 
+* 本地创建新分支后，远程服务器上还没有分支，这种情况下做 `pull`操作的话，因为远程没有相应分支，会出现下面这种情况：
+
+```sh
+➜  git pull 
+There is no tracking information for the current branch.
+Please specify which branch you want to merge with.
+See git-pull(1) for details.
+
+    git pull <remote> <branch>
+
+If you wish to set tracking information for this branch you can do so with:
+
+    git branch --set-upstream-to=origin/<branch> <new-branch-name>
+```
+
+如果，你按照提示执行命令
+
+```sh
+➜  git branch --set-upstream-to=origin/<branch> <new-branch-name>
+error: the requested upstream branch 'origin/test' does not exist
+hint: 
+hint: If you are planning on basing your work on an upstream
+hint: branch that already exists at the remote, you may need to
+hint: run "git fetch" to retrieve it.
+hint: 
+hint: If you are planning to push out a new local branch that
+hint: will track its remote counterpart, you may want to use
+hint: "git push -u" to set the upstream config as you push.
+```
+
+继续按照提示执行命令
+
+```sh
+➜  git push --set-upstream origin <new-branch-name>
+
+·······
+# test 是我所在的分支名称，<new-branch-name>为你所在的分支名称
+To 192.168.13.159:hepeng.l/git_hp.git
+ * [new branch]      test -> test
+Branch 'test' set up to track remote branch 'test' from 'origin'.
+```
+
+到这一步，说明本地分支与远程分支就关联起来了，本地分支同时也有了远程分支的跟踪信息。其实出现 `There is no tracking information for the current branch.` 这种情况，基本上可以认定为本地分支是一个新的分支，然后你做了 `git pull` 操作，这个时候的解决方式，直接`git push --set-upstream origin <new-branch-name>`就好了。
+
+一般，这种操作是不会出现的，但是我刚接触 git 的时候，脑子一片浆糊，就乱操作，时而就会遇到这种情况，这里记录下来，提醒一下。
+
 ### 3.1.2 删除分支
 
 * 删除本地分支
