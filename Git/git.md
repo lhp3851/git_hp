@@ -128,6 +128,52 @@ git checkout <branch>
 git chekcout -b <new-branch>
 ```
 
+* 本地创建新分支后，远程服务器上还没有分支，这种情况下做 `pull`操作的话，因为远程没有相应分支，会出现下面这种情况：
+
+```sh
+➜  git pull 
+There is no tracking information for the current branch.
+Please specify which branch you want to merge with.
+See git-pull(1) for details.
+
+    git pull <remote> <branch>
+
+If you wish to set tracking information for this branch you can do so with:
+
+    git branch --set-upstream-to=origin/<branch> <new-branch-name>
+```
+
+如果，你按照提示执行命令
+
+```sh
+➜  git branch --set-upstream-to=origin/<branch> <new-branch-name>
+error: the requested upstream branch 'origin/test' does not exist
+hint: 
+hint: If you are planning on basing your work on an upstream
+hint: branch that already exists at the remote, you may need to
+hint: run "git fetch" to retrieve it.
+hint: 
+hint: If you are planning to push out a new local branch that
+hint: will track its remote counterpart, you may want to use
+hint: "git push -u" to set the upstream config as you push.
+```
+
+继续按照提示执行命令
+
+```sh
+➜  git push --set-upstream origin <new-branch-name>
+
+·······
+# test 是我所在的分支名称，<new-branch-name>为你所在的分支名称
+To 192.168.13.159:hepeng.l/git_hp.git
+ * [new branch]      test -> test
+Branch 'test' set up to track remote branch 'test' from 'origin'.
+```
+
+到这一步，说明本地分支与远程分支就关联起来了，本地分支同时也有了远程分支的跟踪信息。其实出现 `There is no tracking information for the current branch.` 这种情况，基本上可以认定为本地分支是一个新的分支，然后你做了 `git pull` 操作，这个时候的解决方式，直接`git push --set-upstream origin <new-branch-name>`就好了。
+
+一般，这种操作是不会出现的，但是我刚接触 git 的时候，脑子一片浆糊，就乱操作，时而就会遇到这种情况，这里记录下来，提醒一下。
+
 ### 3.1.2 删除分支
 
 * 删除本地分支
@@ -341,7 +387,10 @@ git reset --hard [HEAD]
 * `--mixed`：重置HEAD到另外一个commit,并且重置 stage/index 以便和HEAD相匹配。
 * `--hard`： 重置HEAD到另外一个commit，重置 stage/index 以便反映HEAD的变化，并且重置workcopy，使仓库HEAD，stage，workcopy 三者保持一致。
 
+参考资料：
+
 * [git 撤销操作](https://git-scm.com/book/zh/v2/Git-基础-撤消操作)
+* [拜托，不要再问我Git如何回滚代码](https://zhuanlan.zhihu.com/p/137856034)
 
 ### 3.4 Stash
 
@@ -526,6 +575,15 @@ git checkout -b version2 v2.0.0
 ```
 
 * [git tag](https://git-scm.com/book/zh/v2/Git-基础-打标签)
+
+## 5. 参考资料
+
+* [git book](https://git-scm.com/book/zh/v2)
+* [图解Git](https://marklodato.github.io/visual-git-guide/index-zh-cn.html)
+
+还有，git manul 也是一个很好的文档，平时学习的时候，也可以充分利用，毕竟不用去网上查找，直接 `git --help` 或者 `git <command> --help`
+
+* `<command>` 是 git 的命令，例如 `pull` 、`push`
 
 [^git-doc]: [git doc](https://git-scm.com/doc)
 [^git-reset]: [git-reset](https://www.cnblogs.com/kidsitcn/p/4513297.html)
