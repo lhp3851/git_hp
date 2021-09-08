@@ -387,7 +387,10 @@ git reset --hard [HEAD]
 * `--mixed`：重置HEAD到另外一个commit,并且重置 stage/index 以便和HEAD相匹配。
 * `--hard`： 重置HEAD到另外一个commit，重置 stage/index 以便反映HEAD的变化，并且重置workcopy，使仓库HEAD，stage，workcopy 三者保持一致。
 
+参考资料：
+
 * [git 撤销操作](https://git-scm.com/book/zh/v2/Git-基础-撤消操作)
+* [拜托，不要再问我Git如何回滚代码](https://zhuanlan.zhihu.com/p/137856034)
 
 ### 3.4 Stash
 
@@ -572,6 +575,15 @@ git checkout -b version2 v2.0.0
 ```
 
 * [git tag](https://git-scm.com/book/zh/v2/Git-基础-打标签)
+
+## 5. 参考资料
+
+* [git book](https://git-scm.com/book/zh/v2)
+* [图解Git](https://marklodato.github.io/visual-git-guide/index-zh-cn.html)
+
+还有，git manul 也是一个很好的文档，平时学习的时候，也可以充分利用，毕竟不用去网上查找，直接 `git --help` 或者 `git <command> --help`
+
+* `<command>` 是 git 的命令，例如 `pull` 、`push`
 
 [^git-doc]: [git doc](https://git-scm.com/doc)
 [^git-reset]: [git-reset](https://www.cnblogs.com/kidsitcn/p/4513297.html)
