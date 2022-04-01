@@ -4,15 +4,11 @@ date: 2022-04-01 09:46:38
 tags: git pull
 ---
 
-## 1. Git 合并
+## 1. Git 合并[^git合并操作总结]
 
 ### 1.1 Merge
 
-<<<<<<< HEAD
 #### 1.1.1 三方合并
-=======
-### 1.1.1 三方合并
->>>>>>> d211b412dce112e59bb9c74b0b0d394705485113
 
 假设你有当前状态的git 记录
 
@@ -24,7 +20,6 @@ tags: git pull
 
 #### 1.1.2 快速合并
 
-<<<<<<< HEAD
 假设当前的git记录状态如下
 
 ![git_merge_ff](./resources/git_merge_ff.png)
@@ -33,8 +28,6 @@ tags: git pull
 
 ![git_merge_no_ff](./resources/git_merge_no_ff.png)
 
-=======
->>>>>>> d211b412dce112e59bb9c74b0b0d394705485113
 #### 1.1.3 合并的种类
 
 ##### 1.1.1 -ff-only
@@ -89,3 +82,5 @@ git rebase --onto master server client
 会产生如下结果：
 
 ![git_rebase_nocheckout_result](./resources/git_nocheckout_rebase_result.png)
+
+[^git合并操作总结]: [git 合并操作总结](https://sevody.github.io/2017/02/16/git-merge-command-summary/)
