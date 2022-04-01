@@ -6,7 +6,7 @@ tags: git pull
 
 ## 1. Git 合并[^git合并操作总结]
 
-### 1.1 Merge
+### 1.1 Merge[^Git分支的新建与合并]
 
 #### 1.1.1 三方合并
 
@@ -83,4 +83,5 @@ git rebase --onto master server client
 
 ![git_rebase_nocheckout_result](./resources/git_nocheckout_rebase_result.png)
 
+[^Git分支的新建与合并]: [Git 分支 - 分支的新建与合并](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E6%96%B0%E5%BB%BA%E4%B8%8E%E5%90%88%E5%B9%B6)
 [^git合并操作总结]: [git 合并操作总结](https://sevody.github.io/2017/02/16/git-merge-command-summary/)
